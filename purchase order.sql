@@ -1,4 +1,4 @@
-select * from tblUsers
+select * from AllUser
 
 select * from role
 
@@ -9,12 +9,28 @@ create table Role
 RoleId int primary key not null,
 RoleName varchar(50) not null
 )
+--------------------ALLUsers-------------------------------
 
---------------User----------------------------------
-create table tblUsers
+create table AllUser
 (
-User_Id int primary key not null,
-User_Name varchar(50) not null,
+user_id int primary key not null,
+RoleId int,
+ FOREIGN KEY (RoleId) REFERENCES Role (RoleId),
+seller_Id int,
+ FOREIGN KEY (seller_Id) REFERENCES seller (seller_Id),
+Vendor_Id int,
+FOREIGN KEY (Vendor_Id) REFERENCES Vendor(Vendor_Id),
+buyer_Id int ,
+ FOREIGN KEY (buyer_Id) REFERENCES tblbuyer (buyer_Id)
+)
+
+
+
+--------------Buyer----------------------------------
+create table tblbuyer
+(
+buyer_Id int primary key not null,
+buyer_Name varchar(50) not null,
 Email varchar(50) unique not null,
 Password varchar(30) not null,
 Address varchar2(50) not null,
@@ -30,6 +46,8 @@ seller_Id int,
  FOREIGN KEY (seller_Id) REFERENCES seller (seller_Id)
 
 )
+ALTER TABLE tblUsers modify Mobile_no number;
+
 
 ---------------seller------------------------
 create table Seller
@@ -49,11 +67,11 @@ Updated_date date
 
 drop table seller
 
-ALTER TABLE Seller ADD user_id int;
-ADD FOREIGN KEY (User_Id) REFERENCES tblUsers(User_Id);
+ALTER TABLE Seller ADD buyer_Id int;
+ALTER TABLE Seller  ADD FOREIGN KEY (buyer_Id) REFERENCES tblbuyer(buyer_Id);
 
-ALTER TABLE Seller ADD Vendor_Id int;
-ALTER TABLE Seller ADD FOREIGN KEY (Vendor_Id) REFERENCES Vendor(Vendor_Id);
+ALTER TABLE Seller 
+ADD FOREIGN KEY (Vendor_Id) REFERENCES Vendor(Vendor_Id);
 
 ------------------------vender-------------------------
 create table Vendor
@@ -76,14 +94,15 @@ seller_Id int,
  FOREIGN KEY (seller_Id) REFERENCES seller (seller_Id)
 )
 
-
 ALTER TABLE vendor ADD product_id int;
 
 ALTER TABLE vendor ADD FOREIGN KEY (product_id) REFERENCES products(product_id);
+
+
 ---------------------------------------******------------------
 
 
-drop table Role
+drop table seller.product_id
 
 CREATE SEQUENCE User_id
 start with 4
@@ -99,7 +118,8 @@ create table products
 product_Id int primary key,
 product_name varchar2(20) not null,
 product_details varchar2(50) not null,
-product_price float not null
+product_price float not null,
+product_Quantity number 
 )
 
 select * from products
@@ -131,7 +151,7 @@ status_name varchar2(20) not null
 commit
 drop table po_status
 
-select * from tblUsers
+select * from tblbuyer
 
 select * from seller
 
