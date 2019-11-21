@@ -76,6 +76,10 @@ seller_Id int,
  FOREIGN KEY (seller_Id) REFERENCES seller (seller_Id)
 )
 
+
+ALTER TABLE vendor ADD product_id int;
+
+ALTER TABLE vendor ADD FOREIGN KEY (product_id) REFERENCES products(product_id);
 ---------------------------------------******------------------
 
 
