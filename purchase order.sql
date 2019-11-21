@@ -52,8 +52,8 @@ drop table seller
 ALTER TABLE Seller ADD user_id int;
 ADD FOREIGN KEY (User_Id) REFERENCES tblUsers(User_Id);
 
-ALTER TABLE Seller 
-ADD FOREIGN KEY (Vendor_Id) REFERENCES Vendor(Vendor_Id);
+ALTER TABLE Seller ADD Vendor_Id int;
+ALTER TABLE Seller ADD FOREIGN KEY (Vendor_Id) REFERENCES Vendor(Vendor_Id);
 
 ------------------------vender-------------------------
 create table Vendor
